@@ -116,6 +116,7 @@ public class Formes
         sauveMine[bon] = nombreHasard;
         bon++;
         forme[nombreHasard].setMine(true);
+        forme[nombreHasard].setNombre(-1);
         System.out.println(nombreHasard);
       }
       erreur = false;
@@ -204,155 +205,53 @@ public class Formes
 
   }
 
-  public void cocher(int _x,int _y,int zoneH, int zoneL)
+  public void cocher(int id,int zoneH,int zoneL)
   {
     int largeur = forme[0].getLargeur();
     int hauteur = forme[0].getHauteur();
-    int id = getIdeForme(_x,_y,zoneH);
-    getForme(id).setCocher(true);
-    boolean arrete =false;
-    int test = id;
     int nbrX = zoneL/largeur;
     int nbrY = zoneH/hauteur;
+    forme[id].setCocher(true);
 
-    if(forme[id].getNombre() == 0)
+
+    if(forme[id].getNombre() == 0 )
     {
-      if(id < total-1 && forme[id].getX() < zoneL-largeur)
+      if(id < total-1 )
       {
-        while(!arrete)
+        if(forme[id+1].getCocher() == false && forme[id].getX() < (zoneL - largeur))
         {
 
-          test++;
-
-          if(forme[test].getX() < zoneL-largeur)
-          {
-
-            forme[test].setCocher(true);
-            if(forme[test].getNombre() > 0)
-            {
-              arrete = true;
-            }
-
-          }
-          else
-          {
-
-              forme[test].setCocher(true);
-
-              arrete = true;
-          }
-
-        }
-
-      }
-      //Gauche
-      test=id;
-      arrete=false;
-
-      if(id > 0 && forme[id].getX() > 0)
-      {
-
-        while(!arrete)
-        {
-
-          test--;
-
-          if(forme[test].getX() > 0)
-          {
-
-            forme[test].setCocher(true);
-            if(forme[test].getNombre() > 0)
-            {
-              arrete = true;
-            }
-
-          }
-          else
-          {
-
-              forme[test].setCocher(true);
-              arrete = true;
-          }
-
+          cocher(id+1,zoneH,zoneL);
         }
 
       }
 
-      //Haut
-      test=id;
-      arrete=false;
-
-      if((id-nbrX) >= 0 && forme[id].getY() > 0)
+      if(id > 0)
       {
-
-        while(!arrete)
+        if(forme[id-1].getCocher() == false && forme[id].getX() > 0)
         {
-          test-=nbrX;
-
-          if(forme[test].getY() > 0)
-          {
-
-            forme[test].setCocher(true);
-            if(forme[test].getNombre() > 0)
-            {
-              arrete = true;
-            }
-
-          }
-          else
-          {
-
-              forme[test].setCocher(true);
-              arrete = true;
-          }
-
+          cocher(id-1,zoneH,zoneL);
         }
-
       }
 
-      //Bas
-      test=id;
-      arrete=false;
-
-      if((id+nbrX) <= total-1  && forme[id].getY() < zoneH-hauteur)
+      if(id+nbrX < total-1)
       {
-
-        while(!arrete)
+        if(forme[id+nbrX].getCocher() == false && forme[id].getY() < (zoneH - hauteur))
         {
-          test+=nbrX;
-
-          if(forme[test].getY() < zoneH-hauteur)
-          {
-
-            forme[test].setCocher(true);
-            if(forme[test].getNombre() > 0)
-            {
-              arrete = true;
-            }
-
-          }
-          else
-          {
-
-              forme[test].setCocher(true);
-              arrete = true;
-          }
-
+          cocher(id+nbrX,zoneH,zoneL);
         }
-
       }
 
-
-
-
-
+      if(id-nbrX > 0)
+      {
+        if(forme[id-nbrX].getCocher() == false && forme[id].getY() > 0)
+        {
+          cocher(id-nbrX,zoneH,zoneL);
+        }
+      }
     }
 
-  }
-
-  public void cocherHautBas(int index,int zoneH, int zoneL,int largeur, int hauteur)
-  {
-
+    return;
   }
 
 }

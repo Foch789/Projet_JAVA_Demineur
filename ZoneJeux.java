@@ -76,6 +76,7 @@ public class ZoneJeux extends JPanel implements MouseListener, Serializable
         x=0;
         y++;
       }
+
       if(!tab.getForme(i).getCocher())
       {
         g.setColor (Color.orange);
@@ -98,7 +99,18 @@ public class ZoneJeux extends JPanel implements MouseListener, Serializable
 
     if(!tab.getForme(event.getX(),event.getY(),zoneHauteur).getCocher())
     {
-      tab.cocher(event.getX(),event.getY(),zoneHauteur,zoneLargeur);
+      int l=tab.getIdeForme(event.getX(),event.getY(),zoneHauteur);
+
+      if(tab.getForme(l).getMine() == true)
+      {
+        tab.getForme(l).setCocher(true);
+        System.out.println("TA PERDU");
+      }
+      else
+      {
+        tab.cocher(l,zoneHauteur,zoneLargeur);
+      }
+
       repaint();
     }
 
