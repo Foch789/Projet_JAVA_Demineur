@@ -1,9 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 
-public class JeuxGraphique extends JFrame
+public class JeuxGraphique extends JFrame implements Serializable
 {
 
+  static final long serialVersionUID = 43L;
   private ZoneJeux zonejeux;
 
   public JeuxGraphique()
@@ -17,7 +19,7 @@ public class JeuxGraphique extends JFrame
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-    zonejeux = new ZoneJeux(400,400,40,40,10);
+    zonejeux = new ZoneJeux(400,400,40,40,5);
     setContentPane(zonejeux);
     setBackground(Color.WHITE);
 

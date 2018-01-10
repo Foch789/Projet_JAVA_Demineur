@@ -3,12 +3,14 @@ import java.awt.*;
 import java.io.IOException;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.*;
 
-public class ZoneJeux extends JPanel implements MouseListener
+public class ZoneJeux extends JPanel implements MouseListener, Serializable
 {
   Formes tab;
   int zoneHauteur;
   int zoneLargeur;
+  static final long serialVersionUID = 42L;
 
   public ZoneJeux(int _zoneHauteur,int _zoneLargeur,int _hauteur,int _largeur,int _mine)
   {
@@ -21,8 +23,6 @@ public class ZoneJeux extends JPanel implements MouseListener
 
     tab = new Formes(total,_mine);
     tab.setForme(zoneHauteur,zoneLargeur,_hauteur,_largeur);
-    tab.CreateMine();
-    tab.placePoint(zoneLargeur,zoneHauteur);
 
     addMouseListener(this);
 
@@ -88,11 +88,21 @@ public class ZoneJeux extends JPanel implements MouseListener
 
   public void mouseClicked(MouseEvent event)
   {
-
     tab.getForme(event.getX(),event.getY(),zoneHauteur).affichage();
-    tab.getForme(event.getX(),event.getY(),zoneHauteur).setCocher(true);
-    repaint();
-    
+
+    if(!tab.getDebut())
+    {
+      tab.setDebut(true,zoneLargeur,zoneHauteur,tab.getIdeForme(event.getX(),event.getY(),zoneHauteur));
+      repaint();
+    }
+
+    if(!tab.getForme(event.getX(),event.getY(),zoneHauteur).getCocher())
+    {
+      tab.cocher(event.getX(),event.getY(),zoneHauteur,zoneLargeur);
+      repaint();
+    }
+
+
   }
 
   public void mouseEntered(MouseEvent event)
