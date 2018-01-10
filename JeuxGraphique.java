@@ -9,7 +9,7 @@ public class JeuxGraphique extends JFrame
   public JeuxGraphique()
   {
     super("Fenetre");
-    setSize(410,410);
+    setSize(400,400);
     setVisible(true);
     setResizable(false);
     setLocationRelativeTo(null);

@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class ZoneJeux extends JPanel
+public class ZoneJeux extends JPanel implements MouseListener
 {
   Formes tab;
   int zoneHauteur;
@@ -22,10 +24,13 @@ public class ZoneJeux extends JPanel
     tab.CreateMine();
     tab.placePoint(zoneLargeur,zoneHauteur);
 
+    addMouseListener(this);
+
   }
 
   public void paint(Graphics g)
   {
+    super.paint(g);
     affiche_fond(g);
     //affiche_graduations(g);
     //affiche_aiguilles(g);
@@ -39,6 +44,7 @@ public class ZoneJeux extends JPanel
 
     for (int i = 0;i < tab.getTotal() ; ++i )
     {
+      g.setColor (Color.black);
       g.drawRect(tab.getForme(i).getX(),tab.getForme(i).getY(),tab.getForme(i).getLargeur(),tab.getForme(i).getHauteur());
 
       nombre = Integer.toString(tab.getForme(i).getNombre());
@@ -70,8 +76,46 @@ public class ZoneJeux extends JPanel
         x=0;
         y++;
       }
+      if(!tab.getForme(i).getCocher())
+      {
+        g.setColor (Color.orange);
+        g.fillRect(tab.getForme(i).getX()+3,tab.getForme(i).getY()+3,tab.getForme(i).getLargeur()-6,tab.getForme(i).getHauteur()-6);
+      }
 
     }
+
+  }
+
+  public void mouseClicked(MouseEvent event)
+  {
+
+    tab.getForme(event.getX(),event.getY(),zoneHauteur).affichage();
+    tab.getForme(event.getX(),event.getY(),zoneHauteur).setCocher(true);
+    repaint();
+    
+  }
+
+  public void mouseEntered(MouseEvent event)
+  {
+
+  }
+
+  public void mouseExited(MouseEvent event)
+  {
+
+  }
+
+  public void mousePressed(MouseEvent event)
+  {
+
+    //System.out.println("X ="+ event.getX() + " et Y = " + event.getY());
+
+  }
+
+  public void mouseReleased(MouseEvent event)
+  {
+
+  //  System.out.println("X ="+ event.getX() + " et Y = " + event.getY());
 
   }
 

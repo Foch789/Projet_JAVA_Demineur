@@ -45,6 +45,17 @@ public class Formes
   public int getTotal() {return total;}
 
   public Forme getForme(int i) {return forme[i];}
+  public Forme getForme(int _x,int _y,int _zoneHauteur)
+  {
+    int largeur = forme[0].getLargeur();
+    int hauteur = forme[0].getHauteur();
+    int nbrY = _zoneHauteur/hauteur;
+
+    int caseX = _x/largeur;
+    int caseY = _y/hauteur;
+
+    return forme[caseY*nbrY+caseX];
+  }
 
   public void CreateMine()
   {

@@ -9,6 +9,7 @@ public class Forme
   private int largeur;
   private boolean cocher;
   private boolean mine;
+  private boolean drapeau;
 
   public Forme(int _nombre, int _x, int _y, int _hauteur , int _largeur)
   {
@@ -19,6 +20,7 @@ public class Forme
     largeur=_largeur;
     cocher = false;
     mine = false;
+    drapeau = false;
   }
 
   public int getNombre(){return nombre;}
@@ -37,6 +39,14 @@ public class Forme
 
   public boolean getMine(){return mine;}
   public void setMine(boolean m){mine = m;}
+
+  public boolean getDrapeau(){return drapeau;}
+  public void setDrapeau(boolean d){drapeau = d;}
+
+  public void affichage()
+  {
+    System.out.println("Voici mon nombre : " + nombre + " mes coordonnées sont x = " + x + " et en y = "+ y);
+  }
 
 
 }
